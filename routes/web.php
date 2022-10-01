@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\clientcontroller;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,11 +21,17 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
-
+Route::prefix('ecommande')->group(function () {
+    Route::get('/', [clientcontroller::class, 'index']);
+    Route::get('/suivit', [clientcontroller::class, 'suivit']);
+    Route::get('/suivit/{id}', [clientcontroller::class, 'commande']);
+    Route::post('/new_commande', [clientcontroller::class, 'new_commande']);
+});
+/*
 Route::get('/camme', function () {
     return view('agent.home');
 })->middleware(['agentcamme']);
-
+*/
 require __DIR__ . '/auth.php';
 
 
